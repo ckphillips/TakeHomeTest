@@ -1,0 +1,49 @@
+CREATE TABLE Products(
+   ID integer	NOT NULL,
+   Name varchar(255)	NOT NULL,
+   Category varchar(255) NOT NULL,
+   PRIMARY KEY(ID)
+ );
+
+
+INSERT INTO Products
+    (ID, Name, Category)
+
+VALUES
+    (111, "Lettuce", "Produce"),
+    (112, "Tomato", "Produce"),
+    (121, "Shampoo", "Toiletries"),
+    (132, "Jeans", "Clothing");
+
+
+ CREATE TABLE ProductPriceHistory(
+   Price decimal(18, 2) NOT NULL,
+   StartDate date NOT NULL,
+   EndDate date,
+   ProductID integer	NOT NULL
+ );
+
+INSERT INTO ProductPriceHistory
+    (ProductID, Price, StartDate, EndDate)
+
+VALUES
+    (111, 2, 2020-4-1, NULL),
+    (112, 1, 2020-5-1, NULL),
+    (121, 4, 2020-1-25, 2020-5-15), 	
+    (121, 5, 2021-7-22, NULL),
+    (132, 40, 2020-1-6, 2020-6-4),
+    (132, 50, 2020-6-3, NULL);
+
+
+SELECT P.ID, P.Name, PPH.Price, PPH.StartDate, PPH.EndDate
+
+FROM Products as P
+
+INNER JOIN ProductPriceHistory as PPH
+
+ON P.ID = PPH.ProductID
+
+--Use this where statement below to grab only the most recent prices for each item
+--WHERE PPH.EndDate IS NULL 
+
+ORDER BY P.ID ASC;
